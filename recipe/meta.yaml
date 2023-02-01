@@ -1,5 +1,5 @@
 {% set name = "uncertainty-toolbox" %}
-{% set version = "0.1.0" %}
+{% set version = "0.1.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,17 +7,18 @@ package:
 
 source:
   url: https://github.com/{{ name }}/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 8c45695b1633e47ac743fa420eac05e6454299cf7ec9d06b2710d90c836eb4cb
+  sha256: 2d792cfae317621f06570e5f2afa5e74ab8fa79603fc5a00f079d276526119e4
 
 build:
   noarch: python
   number: 0
-  script: "{{ PYTHON }} -m pip install . -vv"
+  script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
     - python >=3.6
     - pip
+    - flit-core
   run:
     - python >=3.6
     - numpy >=1.19.0
@@ -42,7 +43,7 @@ about:
   license: MIT
   license_family: MIT
   license_file: LICENSE
-  summary: 'A python toolbox for predictive uncertainty quantification, calibration, metrics, and visualization'
+  summary: A python toolbox for predictive uncertainty quantification, calibration, metrics, and visualization
   description: |
     Uncertainty Toolbox provides standard metrics to quantify and compare
     predictive uncertainty estimates, gives intuition for these metrics,
