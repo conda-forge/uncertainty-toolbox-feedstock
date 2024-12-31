@@ -11,16 +11,16 @@ source:
 
 build:
   noarch: python
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
-    - python >=3.6
+    - python {{ python_min }}
     - pip
     - flit-core
   run:
-    - python >=3.6
+    - python >={{ python_min }}
     - numpy >=1.19.0
     - scipy >=1.5.0
     - matplotlib-base >=3.2.2
@@ -35,6 +35,7 @@ test:
     - uncertainty_toolbox
   requires:
     - pip
+    - python {{ python_min }}
   commands:
     - pip check
 
