@@ -1,26 +1,29 @@
-{% set name = "uncertainty-toolbox" %}
-{% set version = "0.1.1" %}
+schema_version: 1
+
+context:
+  name: uncertainty-toolbox
+  version: "0.1.1"
 
 package:
-  name: {{ name|lower }}
-  version: {{ version }}
+  name: ${{ name|lower }}
+  version: ${{ version }}
 
 source:
-  url: https://github.com/{{ name }}/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
+  url: https://github.com/${{ name }}/${{ name }}/archive/refs/tags/v${{ version }}.tar.gz
   sha256: 2d792cfae317621f06570e5f2afa5e74ab8fa79603fc5a00f079d276526119e4
 
 build:
+  number: 2
   noarch: python
-  number: 1
-  script: {{ PYTHON }} -m pip install . -vv
+  script: ${{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
-    - python {{ python_min }}
+    - python ${{ python_min }}.*
     - pip
     - flit-core
   run:
-    - python >={{ python_min }}
+    - python >=${{ python_min }}
     - numpy >=1.19.0
     - scipy >=1.5.0
     - matplotlib-base >=3.2.2
@@ -30,19 +33,15 @@ requirements:
     - pytest >=5.4.3
     - black >=19.10b0
 
-test:
-  imports:
-    - uncertainty_toolbox
-  requires:
-    - pip
-    - python {{ python_min }}
-  commands:
-    - pip check
+tests:
+  - python:
+      imports:
+        - uncertainty_toolbox
+      pip_check: true
+      python_version: ${{ python_min }}
 
 about:
-  home: https://uncertainty-toolbox.github.io/
   license: MIT
-  license_family: MIT
   license_file: LICENSE
   summary: A python toolbox for predictive uncertainty quantification, calibration, metrics, and visualization
   description: |
@@ -51,8 +50,9 @@ about:
     produces visualizations of these metrics/uncertainties, and
     implements simple "re-calibration" procedures to improve these
     uncertainties. This toolbox currently focuses on regression tasks.
-  doc_url: https://uncertainty-toolbox.github.io/docs/
-  dev_url: https://github.com/uncertainty-toolbox/uncertainty-toolbox
+  homepage: https://uncertainty-toolbox.github.io/
+  repository: https://github.com/uncertainty-toolbox/uncertainty-toolbox
+  documentation: https://uncertainty-toolbox.github.io/docs/
 
 extra:
   recipe-maintainers:
